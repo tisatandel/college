@@ -1,1 +1,23 @@
-<p>table works!</p>
+<table border="1" cellpadding="8" cellspacing="0" *ngIf="data.length">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Address/th>
+      <th>Gender</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let row of data">
+      <td>{{ row.name }}</td>
+      <td>{{ row.phone }}</td>
+      <td>{{ row.email }}</td>
+      <td>{{ row.address }}</td>
+      <td>{{ row.gender }}</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

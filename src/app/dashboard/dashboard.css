@@ -1,0 +1,21 @@
+.card-container {
+  display: flex;        
+  gap: 20px;
+  justify-content: center;  
+  padding: 230px;          
+}
+
+.card {
+  background: rgb(252, 246, 246);
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;        
+  height: 150px; 
+  text-align: center;
+  
+}
+.btn
+{
+    background: rgb(252, 246, 246);
+    border: none;
+}

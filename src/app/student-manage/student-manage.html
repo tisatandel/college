@@ -1,1 +1,8 @@
-<p>student-manage works!</p>
+<h2>Student List</h2>
+<button>+Add Data</button>
+<br/>
+<br/>
+<app-form></app-form>
+<app-table [data]="tableData"></app-table>    
+<br/>
+<button (click)="goToHome()">Back to Dashboard</button>
