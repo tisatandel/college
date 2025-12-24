@@ -10,4 +10,7 @@ export class Teacher {
   getTeachers() {
     return this.teachers;
   }
+  addTeacher(data: any) {
+    this.teachers.push(data);
+  }
 }

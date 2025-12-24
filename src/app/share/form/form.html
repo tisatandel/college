@@ -1,36 +1,29 @@
 <div class="data">
-    <form>
-        <div class="lable">
-            Enter Name:
-        </div>
-        <div class="input">
-            <input type="text"  name="txtname" required>
-        </div>
-        <div class="lable">
-            Enter Phone:
-        </div>
-        <div class="input">
-            <input type="number"  name="txtphone" required>
-        </div>
-        <div class="lable">
-            Enter Email:
-        </div>
-        <div class="input">
-            <input type="email"  name="txtemail" required>
-        </div>
-        <div class="lable">
-            Enter Address:
-        </div>
-        <div class="input">
-            <textarea name="txtaddress" required></textarea>
-        </div>
-        <div class="lable">
-            Select Gender:
-        </div>
-        <div class="input">
-            <input type="radio"  name="gender" value="male" required>Male
-            <input type="radio"  name="gender" value="female" required>Female
-        </div>
-        <button class="btn" type="submit">Create</button>
-    </form>
+  <div class="lable">Enter Name:</div>
+  <div class="input">
+    <input type="text" [(ngModel)]="data.name" name="name" required>
+  </div>
+
+  <div class="lable">Enter Phone:</div>
+  <div class="input">
+    <input type="number" [(ngModel)]="data.phone" name="phone" required>
+  </div>
+
+  <div class="lable">Enter Email:</div>
+  <div class="input">
+    <input type="email" [(ngModel)]="data.email" name="email" required>
+  </div>
+
+  <div class="lable">Enter Address:</div>
+  <div class="input">
+    <textarea [(ngModel)]="data.address" name="address" required></textarea>
+  </div>
+
+  <div class="lable">Select Gender:</div>
+  <div class="input">
+    <input type="radio" [(ngModel)]="data.gender" name="gender" value="male" required> Male
+    <input type="radio" [(ngModel)]="data.gender" name="gender" value="female" required> Female
+  </div>
+
+  <button type="button" (click)="">Create</button>
 </div>

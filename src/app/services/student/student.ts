@@ -12,4 +12,7 @@ export class Student {
   getStudents() {
     return this.students;
   }
+  addStudent(data: any) {
+    this.students.push(data);
+  }
 }
