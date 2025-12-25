@@ -2,7 +2,12 @@
 <button>+Add Data</button>
 <br/>
 <br/>
-<app-form type="student"></app-form>
-<app-table [data]="tableData"></app-table>    
+<app-form [data]="student.data"
+  (save)="student.saveStudent($event)">
+></app-form>
+<app-table [data]="tableData"
+
+(delete)="student.deleteStudent($event)"
+(edit)="student.editStudent($event)"></app-table>    
 <br/>
 <button (click)="goToHome()">Back to Dashboard</button>

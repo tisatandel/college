@@ -11,13 +11,16 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let row of data">
+    <tr *ngFor="let row of data; let i=index">
       <td>{{ row.name }}</td>
       <td>{{ row.phone }}</td>
       <td>{{ row.email }}</td>
       <td>{{ row.address }}</td>
       <td>{{ row.gender }}</td>
-      <td></td>
+      <td>
+        <button (click)="edit.emit(i)">Edit</button> &nbsp;&nbsp;
+        <button (click)="delete.emit(i)">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>

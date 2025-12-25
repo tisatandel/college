@@ -18,16 +18,23 @@ export class StudentManage {
   private router = inject(Router);
   tableData: any[] = [];
 
-  constructor(private studentService: Student) {}
+  constructor(public student: Student) {}
 
   ngOnInit(): void {
     this.loadStudents();  
   }
 
   loadStudents() {
-    this.tableData = this.studentService.getStudents();
+    this.tableData = this.student.getStudents();
   }
-
+  saveStudent(studentValue: any){
+    this.student.saveStudent(studentValue);
+    
+  }
+  editdata(index: number){
+    this.student.editStudent(index);
+  }
+  
   goToHome() {
     this.router.navigate(['/dashboard']);
   }

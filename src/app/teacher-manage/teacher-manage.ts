@@ -16,17 +16,21 @@ export class TeacherManage implements OnInit{
   private router = inject(Router);
   tableData: any[] = [];
 
-  constructor(private teacherService: Teacher) {}
+  constructor(public teacher: Teacher) {}
 
   ngOnInit(): void {
     this.loadTeachers();   
   }
 
   loadTeachers() {
-    this.tableData = this.teacherService.getTeachers();
+    this.tableData = this.teacher.getTeachers();
   }
  
   goToHome() {
     this.router.navigate(['/dashboard']);
   }
+  saveTeacher(data: any) {
+  this.teacher.saveTeacher(data);
+  this.loadTeachers(); 
+}
 }

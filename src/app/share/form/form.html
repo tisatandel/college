@@ -25,5 +25,9 @@
     <input type="radio" [(ngModel)]="data.gender" name="gender" value="female" required> Female
   </div>
 
-  <button type="button" (click)="">Create</button>
+   <button type="button" (click)="submit()">
+    {{ editIndex === null ? 'Save' : 'Update' }}
+  </button>
+
+      
 </div>
