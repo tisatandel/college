@@ -30,7 +30,14 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
 
-  // optional: page not found
+  {
+    path:'student-manage/:email',
+    loadComponent:() => import('./student-manage/student-detail/student-detail').then(m => m.StudentDetail)
+  },
+  {
+    path:'teacher-manage/:email',
+    loadComponent:() => import('./teacher-manage/teacher-detail/teacher-detail').then(m => m.TeacherDetail)
+  },
   {
     path: '**',
     redirectTo: 'dashboard'

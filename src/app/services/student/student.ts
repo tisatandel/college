@@ -53,5 +53,10 @@ export class Student {
   getStudents() {
     return this.students;
   }
-  
+  getStudentByEmail(email: string) {
+    return this.students.find(students => students.email === email);
+  }
+  getStudentCount(){
+    return(this.students.length);
+  }
 }

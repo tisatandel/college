@@ -33,4 +33,5 @@ export class TeacherManage implements OnInit{
   this.teacher.saveTeacher(data);
   this.loadTeachers(); 
 }
+
 }

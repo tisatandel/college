@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Teacher } from '../../services/teacher/teacher';
 import { Student } from '../../services/student/student';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-table',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   standalone:true,
   templateUrl: './table.html',
   styleUrl: './table.css',

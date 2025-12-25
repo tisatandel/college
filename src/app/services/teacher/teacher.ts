@@ -52,4 +52,11 @@ export class Teacher {
 
   getTeachers() {
     return this.teachers;
-  }}
+  }
+  getTeacherByEmail(email: string) {
+    return this.teachers.find(teacher => teacher.email === email);
+  }
+  getTeacherCount(){
+    return(this.teachers.length);
+  }
+}
