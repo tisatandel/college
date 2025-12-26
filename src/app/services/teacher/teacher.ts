@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Gender, person } from '../../interface/interface';
 
 @Injectable({
   providedIn: 'root',
@@ -7,13 +8,13 @@ export class Teacher {
    
   showForm = false;
 
-  teachers = [
+  private teachers:person[] = [
     {
       name: 'tisa',
       phone: 6351617713,
       email: 'tisa@gmail.com',
       address: 'valsad',
-      gender: 'female'
+      gender: Gender.Feamale
     }
   ];
 
