@@ -1,44 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Gender, person } from '../../interface/interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class Teacher {
-   
-  showForm = false;
-
-  private teachers:person[] = [
-    {
-      name: 'tisa',
-      phone: 6351617713,
-      email: 'tisa@gmail.com',
-      address: 'valsad',
-      gender: Gender.Feamale
-    }
-  ];
-
- data = { name: '', phone: 0, email: '', address: '', gender: '' };
-
+  teachers: person[] = [];
+  data: person = { name: '', phone: 0, email: '', address: '', gender: Gender.Male };
   editIndex: number | null = null;
 
-  addTeacher() {
-    this.data = { name: '', phone: 0, email: '', address: '', gender: '' };
-    this.editIndex = null;
-    this.showForm = true;
+  getTeachers() {
+    return this.teachers;
   }
 
-  saveTeacher(studentValue: any) {
-    if (this.editIndex !== null) {
-      // update existing student
-      this.teachers[this.editIndex] = { ...studentValue };
-    } else {
-      // add new student
-      this.teachers.push({ ...studentValue });
-    }
-    this.showForm = false;
+  addTeacher() {
+    this.data = { name: '', phone: 0, email: '', address: '', gender: Gender.Male };
     this.editIndex = null;
-    this.data = { name: '', phone: 0, email: '', address: '', gender: '' };
+  }
+
+  saveTeacher(person: person) {
+    if (this.editIndex !== null) {
+      this.teachers[this.editIndex] = person;
+    } else {
+      this.teachers.push(person);
+    }
+    this.addTeacher(); // Reset form
   }
 
   deleteTeacher(index: number) {
@@ -46,18 +30,18 @@ export class Teacher {
   }
 
   editTeacher(index: number) {
-    this.editIndex = index;
     this.data = { ...this.teachers[index] };
-    this.showForm = true;
+    this.editIndex = index;
   }
 
-  getTeachers() {
-    return this.teachers;
-  }
   getTeacherByEmail(email: string) {
-    return this.teachers.find(teacher => teacher.email === email);
+    return this.teachers.find(t => t.email === email);
   }
-  getTeacherCount(){
-    return(this.teachers.length);
+
+  
+
+  getTeacherCount():number {
+    return this.teachers.length;
+
   }
 }

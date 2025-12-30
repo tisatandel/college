@@ -1,44 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Gender, person } from '../../interface/interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class Student {
-
-  showForm = false;
-
-  private students:person[] = [
-    {
-      name: 'tisa',
-      phone: 6351617713,
-      email: 'tisa@gmail.com',
-      address: 'valsad',
-      gender: Gender.Feamale
-    }
-  ];
-
- data = { name: '', phone: 0, email: '', address: '', gender: '' };
-
+  students: person[] = [];
+  data: person = { name: '', phone: 0, email: '', address: '', gender: Gender.Male };
   editIndex: number | null = null;
 
-  addStudent() {
-    this.data = { name: '', phone: 0, email: '', address: '', gender: '' };
-    this.editIndex = null;
-    this.showForm = true;
+  getStudents() {
+    return this.students;
   }
 
-  saveStudent(studentValue: any) {
-    if (this.editIndex !== null) {
-      // update existing student
-      this.students[this.editIndex] = { ...studentValue };
-    } else {
-      // add new student
-      this.students.push({ ...studentValue });
-    }
-    this.showForm = false;
+  addStudent() {
+    this.data = { name: '', phone: 0, email: '', address: '', gender: Gender.Male };
     this.editIndex = null;
-    this.data = { name: '', phone: 0, email: '', address: '', gender: '' };
+  }
+
+  saveStudent(person: person) {
+    if (this.editIndex !== null) {
+      this.students[this.editIndex] = person;
+    } else {
+      this.students.push(person);
+    }
+    this.addStudent(); // Reset form
   }
 
   deleteStudent(index: number) {
@@ -46,18 +30,16 @@ export class Student {
   }
 
   editStudent(index: number) {
-    this.editIndex = index;
     this.data = { ...this.students[index] };
-    this.showForm = true;
+    this.editIndex = index;
   }
 
-  getStudents() {
-    return this.students;
-  }
   getStudentByEmail(email: string) {
-    return this.students.find(students => students.email === email);
+    return this.students.find(s => s.email === email);
   }
-  getStudentCount(){
-    return(this.students.length);
+
+  getStudentCount():number {
+    return this.students.length;
+
   }
 }

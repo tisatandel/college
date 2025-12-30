@@ -1,32 +1,19 @@
-import { Component, EventEmitter, Input, Output, Signal, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Teacher } from '../../services/teacher/teacher';
+import { person } from '../../interface/interface';
 
 @Component({
   selector: 'app-form',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './form.html',
-  styleUrl: './form.css',
 })
 export class Form {
-@Input() data = {
-    name: '',
-    phone: 0,     
-    email: '',
-    address: '',
-    gender: '',
-  };
-
-  @Input() editIndex: number | null = null;
-  @Output() save = new EventEmitter<any>();
-
-  constructor(public t: Teacher) {}
+  @Input() data!: person;
+  @Input() editIndex!: number | null;
+  @Output() save = new EventEmitter<person>();
 
   submit() {
     this.save.emit(this.data);
-    console.log(this.data);
   }
-
-
-
 }

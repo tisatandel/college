@@ -1,25 +1,29 @@
 <h2>Student List</h2>
+
 <button
   type="button"
   class="btn btn-primary ms-2"
   data-bs-toggle="modal"
-  data-bs-target="#exampleModal">
+  data-bs-target="#exampleModal"
+  (click)="student.addStudent()">
   Add Data
 </button>
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Add Student</h5>
+        <h5 class="modal-title">
+          {{ student.editIndex === null ? 'Add Student' : 'Update Student' }}
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
         <app-form
           [data]="student.data"
+          [editIndex]="student.editIndex"
           (save)="student.saveStudent($event)">
         </app-form>
       </div>
@@ -33,8 +37,9 @@
     </div>
   </div>
 </div>
-<br/>
-<br/>
+
+<br /><br />
+
 <app-table
   [data]="tableData"
   (delete)="student.deleteStudent($event)"
@@ -46,4 +51,3 @@
 <button class="btn btn-secondary" (click)="goToHome()">
   Back to Dashboard
 </button>
-

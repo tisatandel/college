@@ -1,28 +1,24 @@
-
-<br/>
-<table border="1" cellpadding="8" cellspacing="0" *ngIf="data.length">
+<table class="table table-bordered mt-3">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Phone</th>
       <th>Email</th>
-      <th>Address/th>
+      <th>Phone</th>
+      <th>Address</th>
       <th>Gender</th>
-      <th>Action</th>
+      <th>Actions</th>
     </tr>
   </thead>
-
   <tbody>
-    <tr *ngFor="let row of data; let i=index" [routerLink]="row.email">
-      <td>{{ row.name }}</td>
-      <td>{{ row.phone }}</td>
-      <td>{{ row.email }}</td>
-      <td>{{ row.address }}</td>
-      <td>{{ row.gender }}</td>
+    <tr *ngFor="let item of data; let i = index">
+      <td><a [routerLink]="['./', item.email]">{{ item.name }}</a></td>
+      <td>{{ item.email }}</td>
+      <td>{{ item.phone }}</td>
+      <td>{{ item.address }}</td>
+      <td>{{ item.gender }}</td>
       <td>
-        <button (click)="edit.emit(i)">Edit</button> &nbsp;&nbsp;
-        <button (click)="delete.emit(i)">Delete</button> &nbsp;&nbsp;
-        <button>View</button>
+        <button class="btn btn-warning me-2" (click)="edit.emit(i)">Edit</button>
+        <button class="btn btn-danger" (click)="delete.emit(i)">Delete</button>
       </td>
     </tr>
   </tbody>

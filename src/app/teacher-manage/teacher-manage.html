@@ -1,9 +1,9 @@
 <h2>Teacher List</h2>
+
 <button
   type="button"
   class="btn btn-primary ms-2"
-  data-bs-toggle="modal"
-  data-bs-target="#exampleModal">
+  (click)="openModal('add')">
   Add Data
 </button>
 
@@ -13,14 +13,16 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Add Teacher</h5>
+        <h5 class="modal-title">
+          {{ teacher.editIndex === null ? 'Add Teacher' : 'Update Teacher' }}
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
         <app-form
           [data]="teacher.data"
-          (save)="teacher.saveTeacher($event)">
+          (save)="saveTeacher($event)">
         </app-form>
       </div>
 
@@ -33,17 +35,16 @@
     </div>
   </div>
 </div>
-<br/>
-<br/>
+
+<br /><br />
+
 <app-table
   [data]="tableData"
-  (delete)="teacher.deleteTeacher($event)"
-  (edit)="teacher.editTeacher($event)">
+  (delete)="deleteTeacher($event)"
+  (edit)="openModal('edit', $event)">
 </app-table>
-
 <br />
 
 <button class="btn btn-secondary" (click)="goToHome()">
   Back to Dashboard
 </button>
-
