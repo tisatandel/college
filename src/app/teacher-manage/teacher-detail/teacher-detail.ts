@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Teacher } from '../../services/teacher/teacher';
 
 @Component({
   selector: 'app-teacher-detail',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './teacher-detail.html',
   styleUrl: './teacher-detail.css',
 })

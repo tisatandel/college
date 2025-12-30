@@ -12,6 +12,7 @@ import { Form } from '../share/form/form';
   templateUrl: './student-manage.html',
 })
 export class StudentManage implements OnInit {
+
   private router = inject(Router);
   tableData: any[] = [];
 
@@ -23,6 +24,22 @@ export class StudentManage implements OnInit {
 
   loadStudents() {
     this.tableData = this.student.getStudents();
+  }
+
+  openModal() {
+    const modal = document.getElementById('exampleModal');
+    if (modal) {
+      const bsModal = new (window as any).bootstrap.Modal(modal);
+      bsModal.show();
+    }
+  }
+
+  closeModal() {
+    const modal = document.getElementById('exampleModal');
+    if (modal) {
+      const bsModal = (window as any).bootstrap.Modal.getInstance(modal);
+      bsModal.hide();
+    }
   }
 
   goToHome() {

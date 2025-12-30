@@ -1,0 +1,23 @@
+{
+    
+  "teachers": [
+    {
+      "id": "1",
+      "name": "Tisa tandel",
+      "phoneno": "6351617713",
+      "email": "tisatandel@gmail.com",
+      "address": "valsad",
+      "gender": "Female"
+    }
+  ],
+  "students": [
+    {
+      "id": "1",
+      "name": "Raj Dave",
+      "phoneno": "6351617714",
+      "email": "raj@gmail.com",
+      "address": "valsad",
+      "gender": "Male"
+    }
+  ]
+}

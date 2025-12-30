@@ -3,10 +3,8 @@
 <button
   type="button"
   class="btn btn-primary ms-2"
-  data-bs-toggle="modal"
-  data-bs-target="#exampleModal"
-  (click)="student.addStudent()">
-  Add Data
+  (click)="student.addStudent(); openModal()">
+  Add Student
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1">
@@ -24,14 +22,8 @@
         <app-form
           [data]="student.data"
           [editIndex]="student.editIndex"
-          (save)="student.saveStudent($event)">
+          (save)="student.saveStudent($event); closeModal()">
         </app-form>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
       </div>
 
     </div>
@@ -42,8 +34,8 @@
 
 <app-table
   [data]="tableData"
-  (delete)="student.deleteStudent($event)"
-  (edit)="student.editStudent($event)">
+  (edit)="student.editStudent($event); openModal()"
+  (delete)="student.deleteStudent($event)">
 </app-table>
 
 <br />

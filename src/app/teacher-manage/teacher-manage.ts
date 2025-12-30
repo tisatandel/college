@@ -1,11 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
 import { Teacher } from '../services/teacher/teacher';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Table } from '../share/table/table';
 import { Form } from '../share/form/form';
-
-declare var bootstrap: any; // Bootstrap modal
 
 @Component({
   selector: 'app-teacher-manage',
@@ -14,6 +12,7 @@ declare var bootstrap: any; // Bootstrap modal
   templateUrl: './teacher-manage.html',
 })
 export class TeacherManage implements OnInit {
+
   private router = inject(Router);
   tableData: any[] = [];
 
@@ -27,34 +26,20 @@ export class TeacherManage implements OnInit {
     this.tableData = this.teacher.getTeachers();
   }
 
-  saveTeacher(data: any) {
-    this.teacher.saveTeacher(data);
-    this.loadTeachers();
-
-    // Hide the modal after save/update
-    const modalEl: any = document.getElementById('exampleModal');
-    const modalInstance = bootstrap.Modal.getInstance(modalEl);
-    if (modalInstance) {
-      modalInstance.hide();
+  openModal() {
+    const modal = document.getElementById('exampleModal');
+    if (modal) {
+      const bsModal = new (window as any).bootstrap.Modal(modal);
+      bsModal.show();
     }
   }
 
-  deleteTeacher(index: number) {
-    this.teacher.deleteTeacher(index);
-    this.loadTeachers();
-  }
-
-  openModal(mode: 'add' | 'edit', index?: number) {
-    if (mode === 'add') {
-      this.teacher.addTeacher();
-    } else if (mode === 'edit' && index !== undefined) {
-      this.teacher.editTeacher(index);
+  closeModal() {
+    const modal = document.getElementById('exampleModal');
+    if (modal) {
+      const bsModal = (window as any).bootstrap.Modal.getInstance(modal);
+      bsModal.hide();
     }
-
-    // Open Bootstrap modal
-    const modalEl: any = document.getElementById('exampleModal');
-    const modal = new bootstrap.Modal(modalEl);
-    modal.show();
   }
 
   goToHome() {

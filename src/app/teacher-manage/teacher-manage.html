@@ -3,11 +3,10 @@
 <button
   type="button"
   class="btn btn-primary ms-2"
-  (click)="openModal('add')">
-  Add Data
+  (click)="teacher.addTeacher(); openModal()">
+  Add Teacher
 </button>
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -22,14 +21,9 @@
       <div class="modal-body">
         <app-form
           [data]="teacher.data"
-          (save)="saveTeacher($event)">
+          [editIndex]="teacher.editIndex"
+          (save)="teacher.saveTeacher($event); closeModal()">
         </app-form>
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
       </div>
 
     </div>
@@ -40,9 +34,10 @@
 
 <app-table
   [data]="tableData"
-  (delete)="deleteTeacher($event)"
-  (edit)="openModal('edit', $event)">
+  (edit)="teacher.editTeacher($event); openModal()"
+  (delete)="teacher.deleteTeacher($event)">
 </app-table>
+
 <br />
 
 <button class="btn btn-secondary" (click)="goToHome()">
