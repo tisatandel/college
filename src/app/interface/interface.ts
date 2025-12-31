@@ -1,4 +1,5 @@
 export interface person{
+    id?:number;
     name:string;
     phone:number;
     email:string;

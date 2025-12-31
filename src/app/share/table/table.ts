@@ -9,7 +9,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './table.html',
 })
 export class Table {
-  @Input() data: any[] = [];
+  // @Input() data: any[] = [];
+  @Input() data: any[] | null = [];
+
   @Output() edit = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
 

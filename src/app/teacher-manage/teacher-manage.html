@@ -3,27 +3,27 @@
 <button
   type="button"
   class="btn btn-primary ms-2"
-  (click)="teacher.addTeacher(); openModal()">
+  (click)="editTeacher = null; openModal()">
   Add Teacher
 </button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1">
+<div class="modal fade" id="teacherModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <div class="modal-header">
         <h5 class="modal-title">
-          {{ teacher.editIndex === null ? 'Add Teacher' : 'Update Teacher' }}
+          {{ editTeacher === null ? 'Add Teacher' : 'Update Teacher' }}
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
       </div>
 
       <div class="modal-body">
-        <!-- Corrected component selector and input/output bindings -->
-        <app-forms
-        [editData]="teacher.data"
-          (added)="teacher.saveTeacher($event); closeModal()"
-          (updated)="teacher.saveTeacher($event); closeModal()"></app-forms>
+        <app-form
+          [editData]="editTeacher"
+          (added)="addTeacher($event); closeModal()"
+          (updated)="updateTeacher($event); closeModal()">
+        </app-form>
       </div>
 
     </div>
@@ -33,7 +33,7 @@
 <br /><br />
 
 <app-table
-  [data]="tableData"
+  [data]="teachers$ | async"
   (edit)="teacher.editTeacher($event); openModal()"
   (delete)="teacher.deleteTeacher($event)">
 </app-table>
