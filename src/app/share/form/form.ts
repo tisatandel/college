@@ -1,43 +1,50 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { person } from '../../interface/interface';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-
-interface personForm {
-  id: FormControl<string | null>;
-  name: FormControl<string | null>;
-  email: FormControl<string | null>;
-  phone: FormControl<number | null>;
-  address: FormControl<string | null>;
-  gender: FormControl<string | null>
-}
 @Component({
-  selector: 'app-form',
+  selector: 'app-forms',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './form.html',
+  styleUrls: ['./form.css']
 })
-export class Form {
-  @Input() data!: person;                // form data
-  @Input() editIndex!: number | null;    // null = Add, number = Edit
-  @Output() save = new EventEmitter<person>();
+export class Form implements OnChanges {
+  @Input() editData: any = null;
+  @Output() added = new EventEmitter<any>();
+  @Output() updated = new EventEmitter<any>();
 
-  form = new FormGroup<personForm>({
-    id: new FormControl(null), 
-    name: new FormControl(null, Validators.required),
-    email: new FormControl(null, [
-      Validators.required,
-      Validators.pattern(/^[a-zA-Z0-9._%+-]+@tag97(\.[a-zA-Z]{2,})?$/)
-    ]),
-    phone: new FormControl(null, [
-      Validators.required,
-      Validators.pattern('^[6-9]\\d{9}$')
-    ]),
-    address: new FormControl(null, Validators.required),
-    gender: new FormControl(null, Validators.required)
+  forms = new FormGroup({
+    id: new FormControl(null, Validators.required), 
+    name: new FormControl('', Validators.required),
+    phone: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    address: new FormControl(''),
+    gender: new FormControl('male')
   });
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['editData']?.currentValue) {
+      this.forms.patchValue(this.editData);
+      this.forms.get('id')?.disable(); 
+    } else {
+      this.forms.reset({ gender: 'male' });
+      this.forms.get('id')?.enable(); 
+    }
+  }
+
   submit() {
-    this.save.emit(this.data);            // emit data to parent
+    if (this.forms.valid) {
+      const formData = this.forms.getRawValue();
+
+      if (this.editData) {
+        this.updated.emit(formData); 
+      } else {
+        this.added.emit(formData); 
+      }
+
+      this.forms.reset({ gender: 'male' }); // Reset form
+    } else {
+      this.forms.markAllAsTouched(); // Highlight validation errors
+    }
   }
 }

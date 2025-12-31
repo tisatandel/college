@@ -1,10 +1,22 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Gender, person } from '../../interface/interface';
+
+/* ✅ Define StudentData interface */
+export interface StudentData {
+  id?: number;
+  name: string;
+  phone: number;
+  email: string;
+  address: string;
+  gender: Gender;
+}
 
 @Injectable({ providedIn: 'root' })
 export class Student {
 
-  // ✅ Default data
+  /* ✅ Local array for demo/temporary storage */
   students: person[] = [
     {
       name: 'Raj Dave',
@@ -22,7 +34,6 @@ export class Student {
     }
   ];
 
-  // ✅ Form bind data
   data: person = {
     name: '',
     phone: 0,
@@ -31,19 +42,14 @@ export class Student {
     gender: Gender.male
   };
 
-  // ✅ Edit index
   editIndex: number | null = null;
 
-  // ------------------------
-  getStudents() {
+  /* ---------- Local Array Functions ---------- */
+
+  getStudents(): person[] {
     return this.students;
   }
 
-  getStudentCount(): number {
-    return this.students.length;
-  }
-
-  // ------------------------
   addStudent() {
     this.data = {
       name: '',
@@ -52,34 +58,55 @@ export class Student {
       address: '',
       gender: Gender.male
     };
-    this.editIndex = null; // 👉 Save button
+    this.editIndex = null;
   }
 
-  // ------------------------
-  saveStudent(person: person) {
+  saveStudent(p: person) {
     if (this.editIndex !== null) {
-      // UPDATE
-      this.students[this.editIndex] = person;
+      this.students[this.editIndex] = p;
     } else {
-      // SAVE
-      this.students.push(person);
+      this.students.push(p);
     }
-    this.addStudent(); // reset form
+    this.addStudent();
   }
 
-  // ------------------------
   editStudent(index: number) {
     this.data = { ...this.students[index] };
-    this.editIndex = index; // 👉 Update button
+    this.editIndex = index;
   }
 
-  // ------------------------
   deleteStudent(index: number) {
     this.students.splice(index, 1);
   }
 
-  // ------------------------
-  getStudentByEmail(email: string) {
+  getStudentByEmail(email: string): person | undefined {
     return this.students.find(s => s.email === email);
   }
+
+  getStudentCount(): number {
+    return this.students.length;
+  }
+
+  /* ---------- HTTP CRUD ---------- */
+
+  private apiUrl = 'http://localhost:3000/students';
+
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<StudentData[]> {
+    return this.http.get<StudentData[]>(this.apiUrl);
+  }
+
+  add(student: StudentData): Observable<StudentData> {
+    return this.http.post<StudentData>(this.apiUrl, student);
+  }
+
+  update(student: StudentData): Observable<StudentData> {
+    return this.http.put<StudentData>(`${this.apiUrl}/${student.id}`, student);
+  }
+
+  delete(id: number | string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
 }

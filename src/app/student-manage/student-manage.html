@@ -1,10 +1,10 @@
-<h2>Student List</h2>
+<h2>Teacher List</h2>
 
 <button
   type="button"
   class="btn btn-primary ms-2"
   (click)="student.addStudent(); openModal()">
-  Add Student
+  Add Teacher
 </button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1">
@@ -13,17 +13,17 @@
 
       <div class="modal-header">
         <h5 class="modal-title">
-          {{ student.editIndex === null ? 'Add Student' : 'Update Student' }}
+          {{ student.editIndex === null ? 'Add Teacher' : 'Update Teacher' }}
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
-        <app-form
-          [data]="student.data"
-          [editIndex]="student.editIndex"
-          (save)="student.saveStudent($event); closeModal()">
-        </app-form>
+        <!-- Corrected component selector and input/output bindings -->
+        <app-forms
+        [editData]="student.data"
+          (added)="student.saveStudent($event); closeModal()"
+          (updated)="student.saveStudent($event); closeModal()"></app-forms>
       </div>
 
     </div>

@@ -19,11 +19,11 @@
       </div>
 
       <div class="modal-body">
-        <app-form
-          [data]="teacher.data"
-          [editIndex]="teacher.editIndex"
-          (save)="teacher.saveTeacher($event); closeModal()">
-        </app-form>
+        <!-- Corrected component selector and input/output bindings -->
+        <app-forms
+        [editData]="teacher.data"
+          (added)="teacher.saveTeacher($event); closeModal()"
+          (updated)="teacher.saveTeacher($event); closeModal()"></app-forms>
       </div>
 
     </div>

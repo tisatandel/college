@@ -1,9 +1,22 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Gender, person } from '../../interface/interface';
+
+/* ✅ Define TeacherData interface */
+export interface TeacherData {
+  id?: number;
+  name: string;
+  phone: number;
+  email: string;
+  address: string;
+  gender: Gender;
+}
 
 @Injectable({ providedIn: 'root' })
 export class Teacher {
 
+  /* ✅ Local array for demo/temporary storage */
   teachers: person[] = [
     {
       name: 'Tisa Tandel',
@@ -31,16 +44,16 @@ export class Teacher {
 
   editIndex: number | null = null;
 
-  // ------------------------
-  getTeachers() {
-    return this.teachers;
-  }
+  /* ---------- Local Array Functions ---------- */
 
   getTeacherCount(): number {
     return this.teachers.length;
   }
 
-  // ------------------------
+  getTeachers(): person[] {
+    return this.teachers;
+  }
+
   addTeacher() {
     this.data = {
       name: '',
@@ -52,29 +65,48 @@ export class Teacher {
     this.editIndex = null;
   }
 
-  // ------------------------
-  saveTeacher(person: person) {
+  saveTeacher(p: person) {
     if (this.editIndex !== null) {
-      this.teachers[this.editIndex] = person;
+      this.teachers[this.editIndex] = p;
     } else {
-      this.teachers.push(person);
+      this.teachers.push(p);
     }
     this.addTeacher();
   }
 
-  // ------------------------
   editTeacher(index: number) {
     this.data = { ...this.teachers[index] };
     this.editIndex = index;
   }
 
-  // ------------------------
   deleteTeacher(index: number) {
     this.teachers.splice(index, 1);
   }
 
-  // ------------------------
-  getTeacherByEmail(email: string) {
+  getTeacherByEmail(email: string): person | undefined {
     return this.teachers.find(t => t.email === email);
   }
+
+  /* ---------- HTTP CRUD ---------- */
+
+  private apiUrl = 'http://localhost:3000/teachers';
+
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<TeacherData[]> {
+    return this.http.get<TeacherData[]>(this.apiUrl);
+  }
+
+  add(teacher: TeacherData): Observable<TeacherData> {
+    return this.http.post<TeacherData>(this.apiUrl, teacher);
+  }
+
+  update(teacher: TeacherData): Observable<TeacherData> {
+    return this.http.put<TeacherData>(`${this.apiUrl}/${teacher.id}`, teacher);
+  }
+
+  delete(id: number | string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
 }
