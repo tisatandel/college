@@ -80,12 +80,13 @@ export class Student {
   }
 
   getStudentByEmail(email: string): person | undefined {
-    return this.students.find(s => s.email === email);
-  }
+  return this.students.find(s => s.email === email);}
 
   getStudentCount(): number {
     return this.students.length;
   }
+
+  
 
   /* ---------- HTTP CRUD ---------- */
 
@@ -97,12 +98,12 @@ export class Student {
     return this.http.get<person[]>(this.apiUrl);
   }
 
-  add(teacher: person): Observable<person> {
-    return this.http.post<person>(this.apiUrl, teacher);
+  add(student: person): Observable<person> {
+    return this.http.post<person>(this.apiUrl, student);
   }
 
-  update(teacher: person): Observable<person> {
-    return this.http.put<person>(`${this.apiUrl}/${teacher.id}`, teacher);
+  update(student: person): Observable<person> {
+    return this.http.put<person>(`${this.apiUrl}/${student.id}`, student);
   }
 
   delete(id: number | string): Observable<void> {

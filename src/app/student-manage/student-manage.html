@@ -1,45 +1,32 @@
-<h2>Student List</h2>
+<div class="container mt-4">
+  <h2>Teacher Management</h2>
+  <button class="btn btn-primary" (click)="editStudent = null; openModal()">Add Student</button>
 
-<button
-  type="button"
-  class="btn btn-primary ms-2"
-  (click)="student.addStudent(); openModal()">
-  Add Student
-</button>
-
-<div class="modal fade" id="exampleModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title">
-          {{ student.editIndex === null ? 'Add Teacher' : 'Update Teacher' }}
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+  <div class="modal fade" id="teacherModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ editStudent ? 'Update' : 'Add' }} Teacher</h5>
+          <button class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+            @if (editStudent) 
+            {
+            <app-form
+              [editData]="editStudent"
+              (updated)="updateStudent($event); closeModal()">
+            </app-form>
+            } @else {
+            <app-form (added)="addStudent($event); closeModal()"></app-form>
+          }
+        </div>
       </div>
-
-      <div class="modal-body">
-        <!-- Corrected component selector and input/output bindings -->
-        <app-form
-        [editData]="student.data"
-          (added)="student.saveStudent($event); closeModal()"
-          (updated)="student.saveStudent($event); closeModal()"></app-form>
-      </div>
-
     </div>
   </div>
-</div>
 
-<br /><br />
-
-<app-table
-  [data]="tableData"
-  (edit)="student.editStudent($event); openModal()"
-  (delete)="student.deleteStudent($event)">
+  <app-table
+  [data]="students$ | async"
+  (edit)="edit($event)" 
+  (delete)="deleteStudent($event)">
 </app-table>
-
-<br />
-
-<button class="btn btn-secondary" (click)="goToHome()">
-  Back to Dashboard
-</button>
+</div>
