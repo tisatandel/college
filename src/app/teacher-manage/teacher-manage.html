@@ -1,45 +1,32 @@
-<h2>Teacher List</h2>
+<div class="container mt-4">
+  <h2>Teacher Management</h2>
+  <button class="btn btn-primary" (click)="editTeacher = null; openModal()">Add Teacher</button>
 
-<button
-  type="button"
-  class="btn btn-primary ms-2"
-  (click)="editTeacher = null; openModal()">
-  Add Teacher
-</button>
-
-<div class="modal fade" id="teacherModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title">
-          {{ editTeacher === null ? 'Add Teacher' : 'Update Teacher' }}
-        </h5>
-        <button type="button" class="btn-close" (click)="closeModal()"></button>
+  <div class="modal fade" id="teacherModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ editTeacher ? 'Update' : 'Add' }} Teacher</h5>
+          <button class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+            @if (editTeacher) 
+            {
+            <app-form
+              [editData]="editTeacher"
+              (updated)="updateTeacher($event); closeModal()">
+            </app-form>
+            } @else {
+            <app-form (added)="addTeacher($event); closeModal()"></app-form>
+          }
+        </div>
       </div>
-
-      <div class="modal-body">
-        <app-form
-          [editData]="editTeacher"
-          (added)="addTeacher($event); closeModal()"
-          (updated)="updateTeacher($event); closeModal()">
-        </app-form>
-      </div>
-
     </div>
   </div>
-</div>
 
-<br /><br />
-
-<app-table
+  <app-table
   [data]="teachers$ | async"
-  (edit)="teacher.editTeacher($event); openModal()"
-  (delete)="teacher.deleteTeacher($event)">
+  (edit)="edit($event)" 
+  (delete)="deleteTeacher($event)">
 </app-table>
-
-<br />
-
-<button class="btn btn-secondary" (click)="goToHome()">
-  Back to Dashboard
-</button>
+</div>

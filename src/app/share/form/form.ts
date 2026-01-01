@@ -22,16 +22,26 @@ export class Form implements OnChanges {
     gender: new FormControl('')
   });
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['editData']?.currentValue) {
-      this.forms.patchValue(this.editData);
-      this.forms.get('id')?.disable(); 
-    } else {
-      this.forms.reset({ gender: 'male' });
-      this.forms.get('id')?.enable(); 
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['editData']?.currentValue) {
+  //     this.forms.patchValue(this.editData);
+  //     this.forms.get('id')?.disable(); 
+  //   } else {
+  //     this.forms.reset({ gender: 'male' });
+  //     this.forms.get('id')?.enable(); 
+  //   }
+  // }
 
+ngOnChanges(changes: SimpleChanges) {
+  const currentData = changes['editData']?.currentValue;
+  if (currentData) {
+    setTimeout(() => {
+      // Ab id mein wahi value aayegi jo table mein dikh rahi thi (i + 1)
+      this.forms.patchValue(currentData);
+      this.forms.get('id')?.disable();
+    }, 100);
+  }
+}
   submit() {
     if (this.forms.valid) {
       const formData = this.forms.getRawValue();

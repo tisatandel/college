@@ -1,40 +1,38 @@
 <div class="container mt-4">
-
   <h3 class="text-center mb-4">Teacher Details</h3>
 
-  <table class="table table-bordered table-striped table-hover">
-    <tbody>
-      <tr>
-        <th width="30%">Name</th>
-        <td>{{ TeacherDetails?.name }}</td>
-      </tr>
+  @if (TeacherDetails) {
+    <table class="table table-bordered table-striped table-hover">
+      <tbody>
+        <tr>
+          <th width="30%">Name</th>
+          <td>{{ TeacherDetails.name }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ TeacherDetails.email }}</td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td>{{ TeacherDetails.phone }}</td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td>{{ TeacherDetails.address }}</td>
+        </tr>
+        <tr>
+          <th>Gender</th>
+          <td>{{ TeacherDetails.gender }}</td>
+        </tr>
+      </tbody>
+    </table>
+  } @else {
+    <div class="alert alert-info text-center">
+      Fetching data for: {{ email }}
+    </div>
+  }
 
-      <tr>
-        <th>Email</th>
-        <td>{{ TeacherDetails?.email }}</td>
-      </tr>
-
-      <tr>
-        <th>Phone</th>
-        <td>{{ TeacherDetails?.phone }}</td>
-      </tr>
-
-      <tr>
-        <th>Address</th>
-        <td>{{ TeacherDetails?.address }}</td>
-      </tr>
-
-      <tr>
-        <th>Gender</th>
-        <td>{{ TeacherDetails?.gender }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="text-center">
-    <button routerLink="/student-manage" class="btn btn-secondary">
-      Back
-    </button>
+  <div class="text-center mt-3">
+    <button routerLink="/teacher-manage" class="btn btn-secondary">Back</button>
   </div>
-
 </div>

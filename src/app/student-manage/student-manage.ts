@@ -3,7 +3,7 @@ import { Student } from '../services/student/student';
 import { Form } from '../share/form/form';
 import { Table } from '../share/table/table';
 import { person } from '../interface/interface';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-student-manage',
@@ -22,30 +22,69 @@ export class StudentManage implements OnInit {
   ngOnInit() {
     this.loadStudents();
   }
+protected loadStudents(): void {
+  console.log('loadTeachers');
+  this.students$ = this.student.getAll();
+}
 
-  // Load all students
-  loadStudents() {
-    this.students$ = this.student.getAll();
-    this.students$.subscribe(data => this.tableData = data); // table ke liye bhi set karo
-  }
+async addTeacher(data: person) {
+  if (!data) return;
 
-  // Add a new student
-  addStudent(data: person) {
-    this.student.add(data).subscribe((res: person) => {
-      alert('Student Added Successfully');
-      this.loadStudents();
-    });
+  try {
+    const res = await firstValueFrom(this.student.add(data));
+    console.log('Added Teacher:', res);
+    alert('Teacher Added Successfully');
+    this.loadStudents();
+    // Change detection trigger karein taaki UI update ho jaye
+    this.cdr.detectChanges();
+  } catch (error) {
+    console.error('Error adding teacher:', error);
+    alert('Failed to add teacher. Please try again!');
   }
+}
 
-  // Update existing student
-  updateStudent(data: person) {
-    if (!data.id) return alert('Student ID missing for update');
-    this.student.update(data).subscribe(() => {
-      alert('Student Updated Successfully');
-      this.editStudent = null;
-      this.loadStudents();
-    });
+edit(data: person) {
+  console.log('Editing data:', data); // Console mein check karein id aa rahi hai ya nahi
+  this.editStudent = { ...data }; 
+  this.openModal();
+  this.cdr.detectChanges();
+}
+async updateTeacher(data: any) {
+  try {
+    // API Call
+    await firstValueFrom(this.student.update(data));
+    alert('Updated Successfully!');
+    
+    this.editStudent = null; // Reset edit state
+    this.loadStudents();     // Refresh table data
+    // Modal band karna na bhulein
+  } catch (err) {
+    console.error(err);
   }
+}
+  // // Load all students
+  // loadStudents() {
+  //   this.students$ = this.student.getAll();
+  //   this.students$.subscribe(data => this.tableData = data); // table ke liye bhi set karo
+  // }
+
+  // // Add a new student
+  // addStudent(data: person) {
+  //   this.student.add(data).subscribe((res: person) => {
+  //     alert('Student Added Successfully');
+  //     this.loadStudents();
+  //   });
+  // }
+
+  // // Update existing student
+  // updateStudent(data: person) {
+  //   if (!data.id) return alert('Student ID missing for update');
+  //   this.student.update(data).subscribe(() => {
+  //     alert('Student Updated Successfully');
+  //     this.editStudent = null;
+  //     this.loadStudents();
+  //   });
+  // }
 
   // Delete a student
   deleteStudent(data: person) {
@@ -56,10 +95,10 @@ export class StudentManage implements OnInit {
     });
   }
 
-  // Prepare student for edit
-  edit(data: person) {
-    this.editStudent = { ...data };
-  }
+  // // Prepare student for edit
+  // edit(data: person) {
+  //   this.editStudent = { ...data };
+  // }
 
   openModal() {
     const modal = document.getElementById('exampleModal');

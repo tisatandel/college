@@ -39,18 +39,14 @@
             View
           </button>
 
-          <!-- EDIT -->
           <button
             class="btn btn-sm btn-warning me-1"
-            (click)="edit.emit(i)">
-            Edit
+            (click)="edit.emit({ data: item, displayId: i + 1 })"> Edit
           </button>
 
-          <!-- DELETE -->
           <button
             class="btn btn-sm btn-danger"
-            (click)="delete.emit(i)">
-            Delete
+            (click)="delete.emit(item)"> Delete
           </button>
         </td>
       </tr>

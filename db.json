@@ -2,19 +2,19 @@
   "teachers": [
     {
       "id": "1",
-      "name": "Tisa tandel",
+      "name": "Tisa  tandel",
       "phone": "6351617713",
-      "email": "tisatandel@gmail.com",
+      "email": "tisatandel@tag97.com",
       "address": "valsad",
-      "gender": "Female"
+      "gender": "female"
     },
     {
-      "id": "2",
-      "name": "Hiren Tandel",
-      "phone": "9904240331",
-      "email": "hiren@tag97.com",
-      "address": "Surat",
-      "gender": "male"
+      "id": "3",
+      "name": "Twisa Tandel",
+      "phone": "6353822536",
+      "email": "twisa@tag97.com",
+      "address": "Baroda",
+      "gender": "female"
     }
   ],
   "students": [

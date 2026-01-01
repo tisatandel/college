@@ -93,16 +93,16 @@ export class Student {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<StudentData[]> {
-    return this.http.get<StudentData[]>(this.apiUrl);
+  getAll(): Observable<person[]> {
+    return this.http.get<person[]>(this.apiUrl);
   }
 
-  add(student: StudentData): Observable<StudentData> {
-    return this.http.post<StudentData>(this.apiUrl, student);
+  add(teacher: person): Observable<person> {
+    return this.http.post<person>(this.apiUrl, teacher);
   }
 
-  update(student: StudentData): Observable<StudentData> {
-    return this.http.put<StudentData>(`${this.apiUrl}/${student.id}`, student);
+  update(teacher: person): Observable<person> {
+    return this.http.put<person>(`${this.apiUrl}/${teacher.id}`, teacher);
   }
 
   delete(id: number | string): Observable<void> {

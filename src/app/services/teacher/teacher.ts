@@ -83,9 +83,10 @@ export class Teacher {
     this.teachers.splice(index, 1);
   }
 
+  // teacher.ts mein ye check karein
   getTeacherByEmail(email: string): person | undefined {
-    return this.teachers.find(t => t.email === email);
-  }
+  return this.teachers.find(t => t.email === email);
+}
 
   /* ---------- HTTP CRUD ---------- */
 
@@ -94,15 +95,15 @@ export class Teacher {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<person[]> {
-    return this.http.get<TeacherData[]>(this.apiUrl);
+    return this.http.get<person[]>(this.apiUrl);
   }
 
   add(teacher: person): Observable<person> {
-    return this.http.post<TeacherData>(this.apiUrl, teacher);
+    return this.http.post<person>(this.apiUrl, teacher);
   }
 
   update(teacher: person): Observable<person> {
-    return this.http.put<TeacherData>(`${this.apiUrl}/${teacher.id}`, teacher);
+    return this.http.put<person>(`${this.apiUrl}/${teacher.id}`, teacher);
   }
 
   delete(id: number | string): Observable<void> {

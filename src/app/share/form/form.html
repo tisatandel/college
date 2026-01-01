@@ -57,8 +57,7 @@
           <label class="form-check-label">Female</label>
       </div>
   </div>
-  <button type="submit" class="btn btn-primary w-100" 
-          [attr.data-bs-dismiss]="forms.valid ? 'modal' : null">
-    SAVE
-  </button>
+  <button type="submit" class="btn btn-primary" [disabled]="forms.invalid && !editData">
+  {{ editData ? 'Update' : 'Add' }}
+</button>
 </form>
